@@ -1,0 +1,9 @@
+@import "tailwindcss";
+*{
+    font-family: "Fira Code";
+}
+*::selection{
+    background: transparent;
+    color: goldenrod;
+    scroll-behavior: smooth;
+}
