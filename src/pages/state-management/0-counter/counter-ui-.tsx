@@ -26,7 +26,7 @@ const CounterUI = () => {
   };
 
   return (
-    <main className="h-fit min-h-[fit]  w-fit mx-auto flex flex-col items-center py-4 rounded px-4 bg-black text-white gap-3">
+    <main className="h-fit min-h-[fit]  w-full mx-auto flex flex-col items-center py-4 rounded px-4 bg-black text-white gap-3">
       <header className="text-2xl underline">Simple Counter</header>
       <section className="flex flex-col items-center gap-8">
         <span className="text-xl">$ {count}</span>
@@ -67,9 +67,12 @@ const CounterUI = () => {
             }
           />
 
-          <button className="cursor-pointer" type="submit">
-            Done
-          </button>
+          {!incrementAmount ||
+            (!decrementAmount && (
+              <button className="cursor-pointer" type="submit">
+                Done
+              </button>
+            ))}
         </form>
       </section>
     </main>

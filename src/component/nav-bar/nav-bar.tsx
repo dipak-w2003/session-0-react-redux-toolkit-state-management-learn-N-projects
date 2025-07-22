@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { stateManagementUsagesCodesRoutesCollection } from "../../constants/routes/0-state-management-usages-codes-routes";
+import { Link, useNavigate } from "react-router-dom";
 interface IToggles {
   usagesContainerLinks: boolean;
   notesContainerLinks: boolean;
 }
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const [toggle, setToggle] = useState<IToggles>({
     notesContainerLinks: false,
     usagesContainerLinks: false,
@@ -25,17 +28,25 @@ const NavBar = () => {
     }
   }
 
+  const noteContainerToggleHandler = () => {
+    return !toggle.notesContainerLinks
+      ? HandleToggle.noteHandleMouseEnter
+      : HandleToggle.noteHandleMouseLeave;
+  };
+
+  const usagesContainerToggleHandler = () => {
+    return !toggle.usagesContainerLinks
+      ? HandleToggle.usageHandleMouseEnter
+      : HandleToggle.usageHandleMouseLeave;
+  };
   return (
     <nav className="w-full  mb-2 mt-2 relative *:transition-[1s all linear] flex items-center justify-center ">
-      <ul className="w-[70%] flex *:px-8 *:py-2 text-lg justify-around  *:bg-black  text-white *:cursor-pointer gap-6 *:rounded-full *:hover:text-black *:transition-colors *:hover:bg-transparent *:border-black *:border">
+      <ul className="w-[70%] flex *:flex *:items-center *:justify-center *:px-2 *:py-2 *:w-20 text-lg justify-around  *:bg-black  text-white *:cursor-pointer gap-6 *:rounded-full *:hover:text-black *:transition-colors *:hover:bg-transparent *:border-black *:border ">
         <li title="Notes" className="relative">
           <span
-            className="hover:font-bold h-full w-full"
-            onClick={
-              !toggle.notesContainerLinks
-                ? HandleToggle.noteHandleMouseEnter
-                : HandleToggle.noteHandleMouseLeave
-            }
+            className="hover:font-bold w-full flex justify-center"
+            onClick={noteContainerToggleHandler()}
+            onMouseMove={() => setTimeout(noteContainerToggleHandler(), 2000)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -54,7 +65,7 @@ const NavBar = () => {
           </span>
           {toggle.notesContainerLinks && <ListContainerLinksNotes />}
         </li>
-        <li title="Back">
+        <li title="Back" onClick={() => navigate(-1)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -70,6 +81,8 @@ const NavBar = () => {
             />
           </svg>
         </li>
+
+        {/* menu */}
         <li title="Menu">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -86,14 +99,13 @@ const NavBar = () => {
             />
           </svg>
         </li>
+
+        {/* usages */}
         <li title="Usages" className="relative">
           <span
-            className="hover:font-bold h-full w-full"
-            onClick={
-              !toggle.usagesContainerLinks
-                ? HandleToggle.usageHandleMouseEnter
-                : HandleToggle.usageHandleMouseLeave
-            }
+            className="hover:font-bold h-full w-full flex justify-center"
+            onClick={usagesContainerToggleHandler()}
+            onMouseMove={() => setTimeout(usagesContainerToggleHandler(), 2000)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -120,21 +132,21 @@ const NavBar = () => {
 export default NavBar;
 
 function ListContainerLinksUsages() {
-  const [links, setLinks] = useState<
-    { link: string; name: string; active: boolean }[]
-  >([
-    {
-      active: true,
-      link: "/",
-      name: "home",
-    },
-  ]);
-
-  const handleActiveLink = (link: string, name: string, active: boolean) => {};
   return (
-    <div className=" top-[50px] h-[500px] right-0 list-cotainer-links-usages absolute  text-white p-3 w-[500px] bg-black">
-      Usage Container
-    </div>
+    <ul className=" top-[50px] h-[500px] right-0 list-cotainer-links-usages absolute  text-white p-3 w-[500px] bg-black">
+      {/* {stateManagementUsagesCodesRoutesCollection &&
+        stateManagementUsagesCodesRoutesCollection.map((route) => {
+          return (
+            <Link key={route.path} to={route.path}>
+              <li>{route.name}</li>;
+            </Link>
+          );
+        })} */}
+
+      <Link to={stateManagementUsagesCodesRoutesCollection[0].path}>
+        {stateManagementUsagesCodesRoutesCollection[0].name}{" "}
+      </Link>
+    </ul>
   );
 }
 function ListContainerLinksNotes() {

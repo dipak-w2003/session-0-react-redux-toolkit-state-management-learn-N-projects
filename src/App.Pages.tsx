@@ -1,29 +1,54 @@
 import { lazy } from "react";
 import { createBrowserRouter, Outlet } from "react-router-dom";
+import { stateManagementUsagesCodesRoutesCollection } from "./constants/routes/0-state-management-usages-codes-routes";
+import NavBar from "./component/nav-bar/nav-bar";
+import Footer0 from "./component/footers/0-footer";
 
 const HomePage = lazy(() => import("./component/home-page/home-page"));
 const Page_1_404 = lazy(() => import("./component/page-404/page-1-404"));
 const StateManagementMainPage = lazy(
   () => import("./pages/state-management/state-managment-main")
 );
-const CounterPage = lazy(
-  () => import("./pages/state-management/0-counter/counter-page")
+
+// Shared layout with NavBar + Footer
+const Layout = () => (
+  <>
+    <NavBar />
+    {/* 
+      <Outlet /> renders the matched child route component here.
+      Think of it as a placeholder for nested routes.
+    */}
+    <Outlet />
+    <Footer0 />
+  </>
 );
+
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
-  },
-  {
-    path: "/state-management-main-react-redux-toolkit/",
-    element: <StateManagementMainPage />,
-  },
-  {
-    path: "/state-management-main-react-redux-toolkit/project",
-    children: [{ path: "simple-counter", element: <CounterPage /> }],
-  },
-  {
-    path: "*",
-    element: <Page_1_404 />,
+    element: <Layout />, // 👈 shared layout
+    children: [
+      {
+        index: true,
+        element: <HomePage />,
+      },
+      {
+        path: "state-management-main-react-redux-toolkit",
+        element: <StateManagementMainPage />,
+      },
+      {
+        path: "state-management-main-react-redux-toolkit/project",
+        children: stateManagementUsagesCodesRoutesCollection.map(
+          ({ path, element: Element }) => ({
+            path,
+            element: <Element />,
+          })
+        ),
+      },
+      {
+        path: "*",
+        element: <Page_1_404 />,
+      },
+    ],
   },
 ]);
