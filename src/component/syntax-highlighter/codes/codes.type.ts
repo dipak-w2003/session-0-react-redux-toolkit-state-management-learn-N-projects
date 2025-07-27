@@ -6,4 +6,5 @@ export interface ICodes {
   lang: Language;
   code: string;
   location?: string;
+  comments?:string|null
 }

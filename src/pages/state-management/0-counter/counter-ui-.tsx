@@ -8,12 +8,14 @@ import {
   countDecrementBy10,
   countIncrementByNumber,
   countDecrementByNumber,
+  countReset,
 } from "../../../redux/state-slicers/0-counter/counter.slice";
 const CounterUI = () => {
   const { count } = useSelector((state: RootState) => state.counter);
   const dispatch: AppDispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState<number>(0);
   const [decrementAmount, setDecrementAmount] = useState<number>(0);
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     console.log(incrementAmount, decrementAmount);
@@ -27,9 +29,15 @@ const CounterUI = () => {
 
   return (
     <main className="h-fit min-h-[fit]  w-full mx-auto flex flex-col items-center py-4 rounded px-4 bg-black text-white gap-3">
-      <header className="text-2xl underline">Simple Counter</header>
-      <section className="flex flex-col items-center gap-8">
-        <span className="text-xl">$ {count}</span>
+      <header className="text-8xl underline">Simple Counter</header>
+      <section className={`flex mt-20 flex-col items-center gap-8`}>
+        <span
+          className={`text-5xl ${
+            count >= 0 ? "text-green-400" : "text-red-400"
+          }`}
+        >
+          $ {count}.00
+        </span>
 
         <div className="increment-decrement-cotainer-1 flex gap-10 *:bg-black *:py-2 *:px-4 text-white rounded *:cursor-pointer *:border-white *:border">
           <button onClick={() => dispatch(countIncrement())}>Increment</button>
@@ -67,12 +75,21 @@ const CounterUI = () => {
             }
           />
 
-          {!incrementAmount ||
-            (!decrementAmount && (
-              <button className="cursor-pointer" type="submit">
-                Done
-              </button>
-            ))}
+          {/* conditional "done-btn:calculation-handling" */}
+          {(incrementAmount || decrementAmount) > 0 ? (
+            <button className="cursor-pointer" type="submit">
+              Done
+            </button>
+          ) : (
+            ""
+          )}
+          <button
+            type="button"
+            className="cursor-pointer"
+            onClick={() => dispatch(countReset())}
+          >
+            Reset
+          </button>
         </form>
       </section>
     </main>

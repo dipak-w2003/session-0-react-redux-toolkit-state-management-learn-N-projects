@@ -134,18 +134,15 @@ export default NavBar;
 function ListContainerLinksUsages() {
   return (
     <ul className=" top-[50px] h-[500px] right-0 list-cotainer-links-usages absolute  text-white p-3 w-[500px] bg-black">
-      {/* {stateManagementUsagesCodesRoutesCollection &&
+      {stateManagementUsagesCodesRoutesCollection &&
         stateManagementUsagesCodesRoutesCollection.map((route) => {
           return (
             <Link key={route.path} to={route.path}>
-              <li>{route.name}</li>;
+              <li>{route.name}</li>
             </Link>
           );
-        })} */}
+        })}
 
-      <Link to={stateManagementUsagesCodesRoutesCollection[0].path}>
-        {stateManagementUsagesCodesRoutesCollection[0].name}{" "}
-      </Link>
     </ul>
   );
 }
