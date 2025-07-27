@@ -28,7 +28,7 @@ const CounterUI = () => {
   };
 
   return (
-    <main className="h-fit min-h-[fit]  w-full mx-auto flex flex-col items-center py-4 rounded px-4 bg-black text-white gap-3">
+    <main className="h-fit min-h-[fit]  w-full  flex flex-col items-center py-4 rounded px-4 bg-black text-white gap-3">
       <header className="text-8xl underline">Simple Counter</header>
       <section className={`flex mt-20 flex-col items-center gap-8`}>
         <span

@@ -1,5 +1,12 @@
 import type React from "react";
-import CounterPage from "../../pages/state-management/0-counter/counter-page";
+import { lazy } from "react";
+const CounterPage = lazy(
+  () => import("../../pages/state-management/0-counter/counter-page")
+);
+const ThemeTogglerPage = lazy(
+  () =>
+    import("../../pages/state-management/1-theme-toggler/theme-toggler-page")
+);
 export interface IStateManagementUsagesCodesRoutes {
   name: string;
   path: string;
@@ -13,5 +20,10 @@ export const stateManagementUsagesCodesRoutesCollection: IStateManagementUsagesC
       name: "Counter",
       path: `${usagesConstantPath}/0-simple-counter`,
       element: CounterPage,
+    },
+    {
+      name: "Theme Changer",
+      path: `${usagesConstantPath}/1-theme-toggler`,
+      element: ThemeTogglerPage,
     },
   ];

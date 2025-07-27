@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import counterSlice from "./state-slicers/0-counter/counter.slice";
+import themeChooseSlice from "./state-slicers/1-theme-toggler/theme-changer.slice";
 const store = configureStore({
   reducer: {
-    counter:counterSlice
+    counter: counterSlice,
+    themeChoose: themeChooseSlice,
   },
 });
 

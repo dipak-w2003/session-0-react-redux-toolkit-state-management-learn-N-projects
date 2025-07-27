@@ -8,7 +8,7 @@ const CounterUI = lazy(() => import("./counter-ui-"));
 
 const CounterPage: React.FC = () => {
   return (
-    <main className="h-fit min-h-[fit]  w-fit mx-auto flex flex-col items-center py-4 gap-10  rounded px-4">
+    <main className="h-fit min-h-[fit]  w-fit mx-auto flex flex-col items-center  gap-10  rounded ">
       <CounterUI />
 
       <ProjectDescription
