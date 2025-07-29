@@ -1,12 +1,13 @@
 import type { ICodes } from "../../codes.type";
 
 export const grabbedThemeTogglerCodes: ICodes[] = [
-    {
-        id: 0,
-        name: "theme-toggler-page.tsx",
-        lang: "typescript",
-        location: "src/pages/state-management/1-theme-toggler/theme-toggler-page.tsx",
-        code: `import React, { lazy } from "react";
+  {
+    id: 0,
+    name: "theme-toggler-page.tsx",
+    lang: "typescript",
+    location:
+      "src/pages/state-management/1-theme-toggler/theme-toggler-page.tsx",
+    code: `import React, { lazy } from "react";
 import ProjectDescription from "../../../component/project-description/project-description";
 import type { IProjectDescription } from "../../../component/project-description/project-descrption.type";
 const ThemeTogglerUI = lazy(() => import("./theme-toggler-ui"));
@@ -31,14 +32,14 @@ const ThemeTogglerPage: React.FC<{}> = () => {
 
 export default ThemeTogglerPage;
 `,
-        comments: `comments`
-    },
-    {
-        id: 1,
-        name: "theme-toggler-ui.tsx",
-        lang: "typescript",
-        location: "src/pages/state-management/1-theme-toggler/theme-toggler-ui.tsx",
-        code: `import React from "react";
+    comments: `This file is the main page component that sets up and displays the Theme Toggler UI. It imports metadata for display using ProjectDescription and lazily loads ThemeTogglerUI. It serves as the entry point and ties the project description to the UI that interacts with Redux for theme toggling.`,
+  },
+  {
+    id: 1,
+    name: "theme-toggler-ui.tsx",
+    lang: "typescript",
+    location: "src/pages/state-management/1-theme-toggler/theme-toggler-ui.tsx",
+    code: `import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { getTheme } from "../../../redux/state-slicers/1-theme-toggler/theme-changer.type";
@@ -201,14 +202,14 @@ const ThemeTogglerUI: React.FC = () => {
 
 export default ThemeTogglerUI;
 `,
-        comments: `comments`
-    },
-    {
-        id: 2,
-        name: "theme-changer.type.ts",
-        lang: "typescript",
-        location: "src/redux/state-slicers/1-theme-toggler/theme-changer.type.ts",
-        code: `export type IThemeCheck = "night" | "day";
+    comments: `This component is the core UI for the theme toggling experience. It uses useSelector to read the current theme state from Redux (RootState.themeChoose.theme) and dispatches the toggleTheme action from theme-changer.slice.ts. It also imports getTheme from theme-changer.type.ts to get styling values for dynamic theming. This file tightly connects Redux state and the UI theme logic.`,
+  },
+  {
+    id: 2,
+    name: "theme-changer.type.ts",
+    lang: "typescript",
+    location: "src/redux/state-slicers/1-theme-toggler/theme-changer.type.ts",
+    code: `export type IThemeCheck = "night" | "day";
 
 export interface ITheme {
   name: IThemeCheck;
@@ -346,15 +347,14 @@ export const themes: ITheme[] = [
 export const getTheme = (theme: IThemeCheck): ITheme =>
   themes.find((t) => t.name === theme)!;
 `,
-        comments: `comments`
-
-    },
-    {
-        id: 3,
-        name: "theme-changer.slice.ts",
-        lang: "typescript",
-        location: "src/redux/state-slicers/1-theme-toggler/theme-changer.slice.ts",
-        code: `import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+    comments: `Defines types for theme structure (ITheme, IThemeCheck) and provides two themes: night and day. It also exports the getTheme function, which the UI uses to retrieve theme-specific color and style values. `,
+  },
+  {
+    id: 3,
+    name: "theme-changer.slice.ts",
+    lang: "typescript",
+    location: "src/redux/state-slicers/1-theme-toggler/theme-changer.slice.ts",
+    code: `import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IThemeCheck } from "./theme-changer.type";
 interface IinitialState {
   theme: IThemeCheck;
@@ -382,14 +382,14 @@ const themeChooseSlice = createSlice({
 export const { setTheme, resetTheme, toggleTheme } = themeChooseSlice.actions;
 export default themeChooseSlice.reducer;
 `,
-        comments: `comments`
-    },
-    {
-        id: 4,
-        name: "store.ts",
-        lang: "typescript",
-        location: "src/redux/store.ts",
-        code: `import { configureStore } from "@reduxjs/toolkit";
+    comments: `This Redux slice manages the theme state of the application. It initializes the theme to "night" by default. It provides three reducers: setTheme to explicitly set the theme, toggleTheme to switch between "day" and "night" modes, and resetTheme to reset the theme back to "day". These actions help control the theme state globally in the app via Redux.`,
+  },
+  {
+    id: 4,
+    name: "store.ts",
+    lang: "typescript",
+    location: "src/redux/store.ts",
+    code: `import { configureStore } from "@reduxjs/toolkit";
 import counterSlice from "./state-slicers/0-counter/counter.slice";
 import themeChooseSlice from "./state-slicers/1-theme-toggler/theme-changer.slice";
 const store = configureStore({
@@ -404,8 +404,6 @@ export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export default store;
 `,
-        comments: `comments`
-
-    },
-
+    comments: `This file sets up the Redux store for the application using Redux Toolkit's configureStore. It combines multiple reducers, including counterSlice and themeChooseSlice, into a single root reducer. It also exports TypeScript types RootState and AppDispatch, inferred from the store, for use throughout the app to ensure type-safe state selection and dispatching of actions.`,
+  },
 ];
