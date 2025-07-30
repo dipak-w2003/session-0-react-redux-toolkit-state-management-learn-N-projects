@@ -1,4 +1,4 @@
-export interface ICarts {
+export interface IProducts {
   id: number;
   title: string;
   price: number | string;

@@ -3,6 +3,7 @@ import { createBrowserRouter, Outlet } from "react-router-dom";
 import { stateManagementUsagesCodesRoutesCollection } from "./constants/routes/0-state-management-usages-codes-routes";
 import NavBar from "./component/nav-bar/nav-bar";
 import Footer0 from "./component/footers/0-footer";
+import ProductDetailPage from "./pages/state-management/2-e-commerce-cart/e-commerce-product-detail-page";
 
 const HomePage = lazy(() => import("./component/home-page/home-page"));
 const Page_1_404 = lazy(() => import("./component/page-404/page-1-404"));
@@ -44,6 +45,11 @@ export const router = createBrowserRouter([
             element: <Element />,
           })
         ),
+      },
+      {
+        index: true,
+        path: "state-management-main-react-redux-toolkit/project/2-e-commerce-cart/product/:productId/:slug?",
+        element: <ProductDetailPage />
       },
       {
         path: "*",

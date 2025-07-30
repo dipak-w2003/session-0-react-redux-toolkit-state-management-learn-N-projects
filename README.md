@@ -7,6 +7,6 @@
 
 Projects
 
-- []()
-- []()
-- []()
+- [React-Redux @reduxjs/toolikit]()
+- [React Router DOM & Slug]()
+- [Redux Persist]()

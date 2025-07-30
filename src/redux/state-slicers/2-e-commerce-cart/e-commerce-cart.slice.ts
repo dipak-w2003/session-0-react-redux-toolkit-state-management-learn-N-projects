@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ICarts } from "./e-commerce-cart.type";
 
-const initialState: ICarts[] = [
+export const initialStateCart: ICarts[] = [
   {
     id: -0,
     title: "Baseball Cap",
@@ -18,16 +18,23 @@ const initialState: ICarts[] = [
 ];
 const cartSlice = createSlice({
   name: "cartItem",
-  initialState: initialState,
+  initialState: initialStateCart,
   reducers: {
     addToCart(state, action: PayloadAction<ICarts>) {
       const item = action.payload;
-      if (!item) return;
-      state.push({ ...action.payload, quantity: 1 });
+      const checkDuplicate = state.filter(
+        (cart) => cart.id == item.id && cart.title == item.title
+      );
+      console.log(checkDuplicate.length > 0);
+
+      if (item && checkDuplicate.length < 1) {
+        state.push({ ...action.payload, quantity: 1 });
+      }
     },
     increaseItemQuantity(state, action: PayloadAction<{ id: number }>) {
       const itemId = action.payload.id;
       const item = state.find((item) => item.id === itemId);
+      console.log("Increasing Quantity ", item);
       if (item) {
         item.quantity += 1;
       }
@@ -35,6 +42,7 @@ const cartSlice = createSlice({
     decreaseItemQuantity(state, action: PayloadAction<{ id: number }>) {
       const itemId = action.payload.id;
       const item = state.find((item) => item.id === itemId);
+      console.log("Decreasing Quantity ", item);
       if (item && item.quantity !== 0) {
         item.quantity -= 1;
       }
