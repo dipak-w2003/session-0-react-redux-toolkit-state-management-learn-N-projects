@@ -16,7 +16,7 @@ const Layout = () => (
   <>
     <NavBar />
     {/* 
-      <Outlet /> renders the matched child route component here.
+    <Outlet /> renders the matched child route component here.
       Think of it as a placeholder for nested routes.
     */}
     <Outlet />

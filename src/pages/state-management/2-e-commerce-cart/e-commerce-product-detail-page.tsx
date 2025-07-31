@@ -1,19 +1,27 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import type { RootState } from "../../../redux/store";
+import type { AppDispatch, RootState } from "../../../redux/store";
+import { addToCart, decreaseItemQuantity, increaseItemQuantity } from "../../../redux/state-slicers/2-e-commerce-cart/e-commerce-cart.slice";
+import type { IProducts } from "../../../redux/state-slicers/2-e-commerce-cart/e-commerce-cart.type";
 
 export default function ProductDetailPage() {
   const { productId } = useParams<{ productId: string }>();
   // convert persist based data into array from object
   const productsList = Object.values(useSelector((state: RootState) => state.productsList));
   const cartItems = useSelector((state: RootState) => state.cartItem);
+  const dispatch: AppDispatch = useDispatch()
   const product = productsList.find(
     (item) => item.id === Number(productId)
   );
+  //console.log(product);
+  const cartItem = cartItems.find(cItem => cItem.id === product?.id)
+  //console.log(cartItem);
+
+
 
   if (!product) return <h1>Page Not Found</h1>
-  const getCartItemQty = cartItems.find(item => item.id == Number(productId))
-  console.log(getCartItemQty);
+  // const getCartItemQty = cartItems.find(item => item.id == Number(productId))
+  //console.log(getCartItemQty);
 
 
   return (
@@ -54,9 +62,9 @@ export default function ProductDetailPage() {
               <div className="mb-4 flex items-center gap-4">
                 <span className="font-bold text-gray-800 dark:text-gray-300">Quantity:</span>
                 <div className="flex items-center gap-2">
-                  <button className="bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-black dark:text-white px-3 py-1 rounded-full font-bold">–</button>
-                  <span className="text-lg">{0}</span>
-                  <button className="bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-black dark:text-white px-3 py-1 rounded-full font-bold">+</button>
+                  <button onClick={() => dispatch((decreaseItemQuantity({ id: product.id })))} className="bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-black dark:text-white px-3 py-1 rounded-full font-bold">–</button>
+                  <span className="text-lg">{cartItem?.quantity ?? 0}</span>
+                  <button onClick={() => dispatch(increaseItemQuantity({ id: product.id }))} className="bg-gray-300 hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600 text-black dark:text-white px-3 py-1 rounded-full font-bold">+</button>
                 </div>
               </div>
 
@@ -78,7 +86,7 @@ export default function ProductDetailPage() {
 
             {/* Actions */}
             <div className="flex gap-4">
-              <button className="flex-1 bg-[#0CAA91] hover:bg-[#08967a] text-white py-3 rounded-full font-bold transition">
+              <button onClick={() => dispatch((addToCart(product)))} className="flex-1 bg-[#0CAA91] hover:bg-[#08967a] text-white py-3 rounded-full font-bold transition">
                 Add to Cart
               </button>
               <button className="flex-1 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white py-3 rounded-full font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition">
