@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import type { AppDispatch, RootState } from "../../../redux/store";
 import { addToCart, decreaseItemQuantity, increaseItemQuantity } from "../../../redux/state-slicers/2-e-commerce-cart/e-commerce-cart.slice";
-import type { IProducts } from "../../../redux/state-slicers/2-e-commerce-cart/e-commerce-cart.type";
+// import type { IProducts } from "../../../redux/state-slicers/2-e-commerce-cart/e-commerce-cart.type";
 
 export default function ProductDetailPage() {
   const { productId } = useParams<{ productId: string }>();

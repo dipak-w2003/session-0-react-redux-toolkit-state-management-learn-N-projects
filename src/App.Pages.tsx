@@ -4,6 +4,7 @@ import { stateManagementUsagesCodesRoutesCollection } from "./constants/routes/0
 import NavBar from "./component/nav-bar/nav-bar";
 import Footer0 from "./component/footers/0-footer";
 import ProductDetailPage from "./pages/state-management/2-e-commerce-cart/e-commerce-product-detail-page";
+import ECommerceCartDashboard from "./pages/state-management/2-e-commerce-cart/e-commerce-cart-dashboard";
 
 const HomePage = lazy(() => import("./component/home-page/home-page"));
 const Page_1_404 = lazy(() => import("./component/page-404/page-1-404"));
@@ -16,7 +17,7 @@ const Layout = () => (
   <>
     <NavBar />
     {/* 
-    <Outlet /> renders the matched child route component here.
+      <Outlet /> renders the matched child route component here.
       Think of it as a placeholder for nested routes.
     */}
     <Outlet />
@@ -41,10 +42,17 @@ export const router = createBrowserRouter([
         path: "state-management-main-react-redux-toolkit/project",
         children: stateManagementUsagesCodesRoutesCollection.map(
           ({ path, element: Element }) => ({
-            path,
+            path: path,
             element: <Element />,
           })
         ),
+      },
+
+      {
+        //index: true,
+        path: "state-management-main-react-redux-toolkit/project/2-e-commerce-cart/dashboard",
+        element: <ECommerceCartDashboard />
+
       },
       {
         index: true,
