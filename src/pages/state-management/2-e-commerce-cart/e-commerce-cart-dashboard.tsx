@@ -10,7 +10,7 @@ export default function ECommerceCartDashboard() {
 
   return <main className="flex flex-col w-full min-h-[100vh] items-center bg-gray-800">
 
-    <header className="text-5xl my-[5vh]">{cartItems.length < 0 ? 'Cart Items' : 'No Items Added'}</header>
+    <header className="text-5xl my-[5vh]">{cartItems.length > 0 ? 'Cart Items' : 'No Items Added'}</header>
 
     <section className="flex flex-col h-full w-full items-center gap-2.5">
       {
